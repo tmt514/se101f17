@@ -1,0 +1,77 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.App-routemap {
+  display: inline-block;
+  margin-left: 100px;
+  padding: 0;
+  vertical-align: middle;
+  position: relative;
+}
+.App-routemap.red::before { background-color: red; }
+.App-routemap.green::before { background-color: darkgreen; }
+.App-routemap.yellow::before { background-color: orange; }
+.App-routemap.blue::before { background-color: darkblue; }
+
+.App-routemap::before {
+  content: " ";
+  position: absolute;
+  margin-left: 8px;
+  left: 0px;
+  top: 20px;
+  bottom: 40px;
+  width: 12px;
+  z-index: -5;
+}
+
+.App-routemap li {
+  list-style: none;
+  vertical-align: middle;
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.App-routemap li .description {
+  transform: rotate(-10deg);
+  transform-origin: 0% 50%;
+}
+
+.App-routemap li .listbullet {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius:50%;
+  margin-right: 10px;
+}
+.listbullet.red { border: solid red 5px; }
+.listbullet.green { border: solid darkgreen 5px; }
+.listbullet.blue { border: solid darkblue 5px; }
+.listbullet.yellow { border: solid orange 5px; }
+
+.listbullet.empty { background: white; }
+.listbullet.filled.red { background: red; }
+.listbullet.filled.green { background: darkgreen; }
+.listbullet.filled.blue { background: darkblue; }
+.listbullet.filled.yellow { background: orange; }
