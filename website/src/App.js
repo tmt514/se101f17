@@ -5,9 +5,13 @@ import update from 'immutability-helper';
 
 class ListItemBullet extends Component {
   render() {
-    let cssClasses = `listbullet ${this.props.color} empty`;
+    let cssClasses = `listbullet`;
+    const bulletStyle = {
+      border: `5px solid ${this.props.color}`,
+      backgroundColor: 'white'
+    };
     return (
-      <div className={cssClasses}></div>
+      <div className={cssClasses} style={bulletStyle}></div>
     );
   }
 };
@@ -15,18 +19,44 @@ class ListItemBullet extends Component {
 class MyRouteMap extends Component {
   render() {
     const renderList = (list) => {
-      const lis = list.map((str, index) => {
-        return (<li key={index}><ListItemBullet color={this.props.color} /><span className='description'>{str}</span></li>);
+      const lis = list.map((data, index) => {
+        return (<li key={index}><ListItemBullet color={this.props.color} />
+        {
+          data.url?
+          (<a href={data.url}><span className='description'>{data.name}</span><div className='details'>This is a test.<br/>This is second line</div></a>)
+          :
+          (<span className='description'>{data.name}</span>)
+        }
+        </li>);
       })
       return lis;
     };
 
-    let cssClasses = `App-routemap ${this.props.color}`;
+    const cssClasses = `App-routemap ${this.props.color}`;
+    const ulStyle = {
+      //color: this.props.color,
+      marginTop: '30px'
+    };
+    const ulBeforeStyle = {
+      content: " ",
+      position: 'absolute',
+      marginLeft: '8px',
+      left: '0px',
+      top: '20px',
+      bottom: '40px',
+      width: '12px',
+      zIndex: -5,
+      backgroundColor: this.props.color
+    };
 
     return (
-      <ul className={cssClasses} style={{ marginTop: '50px' }}>
+      <div className="App-routemap-div">
+        <h2>{this.props.title}</h2>
+      <ul className={cssClasses} style={ulStyle}>
+        <div style={ulBeforeStyle}></div>
         { renderList(this.props.datalist) }
       </ul>
+      </div>
     );
   }
 }
@@ -37,12 +67,10 @@ class App extends Component {
     super();
     this.state = {
       list_unix: [
-        "一些 Terminal 常用小工具",
-        "Unix* 檔案系統",
-        "vi 教學",
-        "git 教學",
-        "test item 4",
-        "test item 5"
+        {
+          name: "Git 使用與教學",
+          url: "https://se101.mtsa.me/Slide/Git/#/"
+        }
       ],
       'list_system': [
         "作業系統概述",
@@ -79,14 +107,16 @@ class App extends Component {
           <h1>SE101: 我想成為軟體工程師！</h1>
           <span className="App-intro">UMich Taiwanese Software Engineers Reading Group - Fall 2017</span>
         </div>
-        <button onClick={() => this.handleClick()}>Add Item</button>
         
-        <MyRouteMap datalist={this.state.list_unix} color='red' />
-        <MyRouteMap datalist={this.state.list_system} color='green' />
-        <MyRouteMap datalist={this.state.list_data} color='blue' />
-        <MyRouteMap datalist={this.state.list_algo} color='yellow' />
+        <div className="App-contents">
+        <MyRouteMap title='黑框框與開發者工具'datalist={this.state.list_unix} color='red' />
+        <MyRouteMap title='系統架設與維運' datalist={this.state.list_system} color='darkgreen' />
+        <MyRouteMap title='資料科學與技術' datalist={this.state.list_data} color='darkblue' />
+        <MyRouteMap title='編程面試與程式語言' datalist={this.state.list_algo} color='orange' />
+        </div>
       </div>
     );
+    //<button onClick={() => this.handleClick()}>Add Item</button>
   }
 }
 
